@@ -1,0 +1,10 @@
+
+type: 'application'
+
+workspace:
+  inheritedTasks:
+    exclude: ['buildPackage']
+
+tasks:
+  build:
+    command: 'next build'

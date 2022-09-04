@@ -73,6 +73,18 @@ for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
 }
 const averageNxTime = nxTime / NUMBER_OF_RUNS;
 
+message(`running moon ${NUMBER_OF_RUNS} times`);
+let moonTime = 0;
+for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
+  cleanFolders();
+  const b = new Date();
+  spawnSync('moon', ['run', ':build', '--jobTotal', 10]);
+  const a = new Date();
+  moonTime += a.getTime() - b.getTime();
+  console.log(`The command ran in ${a.getTime() - b.getTime()}ms`);
+}
+const averageMoonTime = moonTime / NUMBER_OF_RUNS;
+
 message(`running lerna ${NUMBER_OF_RUNS} times`);
 let lernaTime = 0;
 for (let i = 0; i < NUMBER_OF_RUNS; ++i) {
@@ -103,7 +115,9 @@ console.log(`average lage time is: ${averageLageTime}`);
 console.log(`average turbo time is: ${averageTurboTime}`);
 console.log(`average lerna (powered by nx) time is: ${averageLernaTime}`);
 console.log(`average nx time is: ${averageNxTime}`);
+console.log(`average moon time is: ${averageMoonTime}`)
 
 console.log(`nx is ${averageLageTime / averageNxTime}x faster than lage`);
 console.log(`nx is ${averageTurboTime / averageNxTime}x faster than turbo`);
 console.log(`nx is ${averageLernaTime / averageNxTime}x faster than lerna (powered by nx)`);
+console.log(`moon is ${averageMoonTime / averageNxTime}x faster than lerna (powered by nx)`);
